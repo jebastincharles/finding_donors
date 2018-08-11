@@ -12495,7 +12495,7 @@ It is a ratio of true positives(words classified as spam, and which are actually
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[12]:</div>
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="sd">&#39;&#39;&#39;</span>
@@ -12508,8 +12508,9 @@ It is a ratio of true positives(words classified as spam, and which are actually
 <span class="sd">&#39;&#39;&#39;</span>
 <span class="c1"># TODO: Calculate accuracy, precision and recall</span>
 <span class="n">accuracy</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">n_greater_50k</span><span class="p">)</span><span class="o">/</span><span class="nb">float</span><span class="p">(</span><span class="n">n_records</span><span class="p">)</span>
-<span class="n">recall</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">n_greater_50k</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">n_greater_50k</span><span class="p">)</span> <span class="o">+</span> <span class="nb">float</span><span class="p">(</span><span class="n">n_at_most_50k</span><span class="p">))</span>
-<span class="n">precision</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">n_greater_50k</span><span class="p">)</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="n">n_greater_50k</span><span class="p">)</span>
+<span class="n">recall</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">n_greater_50k</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">n_greater_50k</span><span class="p">))</span>
+<span class="n">precision</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">n_greater_50k</span><span class="p">)</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="n">n_records</span><span class="p">)</span>
+
 
 <span class="c1"># TODO: Calculate F-score using the formula above for beta = 0.5 and correct values for precision and recall.</span>
 <span class="n">fscore</span> <span class="o">=</span> <span class="n">fscore</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mf">0.5</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="p">((</span><span class="n">precision</span> <span class="o">*</span> <span class="n">recall</span><span class="p">)</span> <span class="o">/</span> <span class="p">((</span><span class="mf">0.5</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">precision</span> <span class="p">)</span> <span class="o">+</span> <span class="n">recall</span><span class="p">)</span> <span class="p">)</span>
@@ -12533,7 +12534,7 @@ It is a ratio of true positives(words classified as spam, and which are actually
 
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Naive Predictor: [Accuracy score: 0.2478, F-score: 0.6223]
+<pre>Naive Predictor: [Accuracy score: 0.2478, F-score: 0.2917]
 </pre>
 </div>
 </div>
@@ -12591,8 +12592,10 @@ The advantages of using this are
     d. Performs well even if its assumptions are somewhat violated by the true model from which the data were generated.
 The weekness are 
     a. Decision-tree learners can create over-complex trees that do not generalise the data well. This is called overfitting. Mechanisms such as pruning setting the minimum number of samples required at a leaf node or setting the maximum depth of the tree are necessary to avoid this problem.
-    b. Decision trees can be unstable because small variations in the data might result in a completely different tree being generated. This problem is mitigated by using decision trees within an ensemble.
-This want to try this model since our dataset have some skewed data, This model handles skewed sata well and predicts the target variable.</p>
+    b. Decision trees can be unstable because small variations in the data might result in a completely different tree being generated. This problem is mitigated by using decision trees within an ensemble.</p>
+<p>Why we chose this model
+I want to try this model since our dataset have some skewed data, This model handles skewed data well and predicts the target variable. The input data have outlier but this model is robust to outlier. this model handles missing data without needing to resort to imputation.Since our dataset is large, this model performs well in prediction. It will scale very good if the data scales up. it has very high prediction power on the future . records.
+Ref : <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4466856/">https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4466856/</a></p>
 <p>Gaussian Naive Bayes</p>
 <p>Naive Bayes classifiers are a family of simple "probabilistic classifiers" based on applying Bayes' theorem with strong (naive) independence assumptions between the features. 
 Gaussian Naive Bayes learning model is used for text classification purposes. Specifically to segregate the spam emails from actual once based on the likelihood of certain words present  in  spam email as compared to a normal email.</p>
@@ -12602,7 +12605,10 @@ Gaussian Naive Bayes learning model is used for text classification purposes. Sp
     c. Even  if independence assumption is broken (features have relationships between them), this algorithm  will still classify correctly based on the maximum likelihood of a label given the set of features</p>
 <p>The disadvantages of using this are
     a. In classification tasks, we need a big data set in order to make reliable estimations of  probability of each feature.</p>
-<p>This particular model is a good candidate of this problem since it have probabilistic classifiers capability and out data features is kind of indepenedent ot each other.</p>
+<p>Why we choose this model
+This algorithm outperform more complex models when the data set small as well. Training is fast because only the probability of each class and the probability of each class given different input (x) values need to be calculated. No coefficients need to be fitted by optimization procedures.Naive Bayes assumes label attributes such as binary, categorical or nominal. It is a classification algorithm suitable for binary and multiclass classification.
+This particular model is a good candidate of this problem since it have probabilistic classifiers capability and out data features is kind of indepenedent ot each other.</p>
+<p>Reference : <a href="https://machinelearningmastery.com/naive-bayes-for-machine-learning/">https://machinelearningmastery.com/naive-bayes-for-machine-learning/</a></p>
 <p>AdaBoostClassifier</p>
 <p>Adaboost is a Boosting type Ensemble Learning Method. boosting algorithmsis used in binary classification problem of face detection 
 The advantages of this are
@@ -12610,8 +12616,10 @@ The advantages of this are
     b. On each step of  training, it provides  more weight to missclassified labels to allow the classifier to focus on the wrong cases which increases the overall model's performance.
 The disadvnatges of this are
     a. If the data have more outliers, and it will have  negatively impact on the performance so data pre processing is important. 
-    b. If a complex model is used as the base classifier, then it overfits to the training data.
-    This model is good candidate for our problem because our data is cleaned and normalised which provides accuracy in continuous steps of training.</p>
+    b. If a complex model is used as the base classifier, then it overfits to the training data.</p>
+<p>Why we choose this model
+    This model is good candidate for our problem because our data is cleaned and normalised which provides accuracy in continuous steps of training. Predictions are made by calculating the weighted average of the weak classifiers. so we get good accuracy. Because the ensemble method continues to attempt to correct misclassifications in the training data, out high quality refined data might help here.Outliers will force the ensemble down the rabbit hole of working hard to correct for cases that are unrealistic, we  almost reduced the outliers.Noisy data, specifically noise in the output variable can be problematic. If possible, attempt to isolate and clean these from your training dataset.</p>
+<p>Reference : <a href="https://machinelearningmastery.com/boosting-and-adaboost-for-machine-learning/">https://machinelearningmastery.com/boosting-and-adaboost-for-machine-learning/</a></p>
 
 </div>
 </div>
@@ -12839,6 +12847,11 @@ Look at the graph at the bottom left from the cell above(the visualization creat
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Answer: </strong></p>
 <p>On comparing all the three models, Adaboostclassifier learning model can be used to predict the individual income. Though the model training time and predicition time are higher compared to other model, the predicition accuracy and F2 score on predicition is high which give a high accurate predicion based on the data provided.</p>
+<p>Yes, the training time for this model is pretty hight , so we can do 2 things</p>
+<ol>
+<li>Reduce the input  features which are dependent. So the training time might be reduced</li>
+<li>On scenario basis we can choose this algorithm or decision classifier. If we cannt bare the extra training time fro adaboost we have to go with decision classifier which give less accuracy prediction compare to adaboost.</li>
+</ol>
 
 </div>
 </div>
@@ -13017,7 +13030,7 @@ Final F-score on the testing data: 0.7452
 </tr>
 <tr>
 <td style="text-align:center">F-score</td>
-<td style="text-align:center">0.6223</td>
+<td style="text-align:center">0.2917</td>
 <td style="text-align:center">0.7246</td>
 <td style="text-align:center">0.7452</td>
 </tr>
@@ -13032,7 +13045,7 @@ Final F-score on the testing data: 0.7452
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Answer: </strong></p>
-<p>The accurancy score and F-score are optimized model using gridserachCV is far better compared to naive predictor. The optimized model is slightly better than unoptimized model score.</p>
+<p>The accurancy score and F-score are optimized model using gridserachCV is far better compared to naive predictor. The optimized model is slightly better than unoptimized model score. By using optimized model , we can predict 28033 (45222 * .6199) more people correctly compared to naive predictor model.</p>
 
 </div>
 </div>
